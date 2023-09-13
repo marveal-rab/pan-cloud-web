@@ -1,7 +1,34 @@
+<script setup>
+import LogoFullIcon from "./icons/IconLogoFull.vue";
+
+const links = [
+  { icon: "mdi-folder", text: "全部文件" },
+  { icon: "mdi-trash-can-outline", text: "回收站" },
+];
+const menuItems = [
+  {
+    text: "全部文件",
+    icon: "mdi-folder",
+    subMenu: [
+      { text: "图片", icon: "mdi-image-multiple" },
+      { text: "文档", icon: "mdi-file-multiple" },
+      { text: "视频", icon: "mdi-video" },
+      { text: "音频", icon: "mdi-music" },
+      { text: "其他", icon: "mdi-dots-horizontal" },
+    ],
+  },
+  {
+    text: "回收站",
+    icon: "mdi-trash-can",
+    subMenu: [],
+  },
+];
+</script>
+
 <template>
   <v-navigation-drawer permanent>
-    <v-sheet color="grey-lighten-4" class="pa-4" style="height: 64">
-      <v-img alt="Logo" src="../assets/logo.svg"></v-img>
+    <v-sheet color="grey-lighten-4" class="px-1 py-2" align="center">
+      <logo-full-icon height="36px" width="100%" />
     </v-sheet>
 
     <v-divider></v-divider>
@@ -35,29 +62,3 @@
     </template>
   </v-navigation-drawer>
 </template>
-
-<script setup>
-const links = [
-  { icon: "mdi-folder", text: "全部文件" },
-  { icon: "mdi-trash-can-outline", text: "回收站" },
-];
-const menuItems = [
-  {
-    text: "全部文件",
-    icon: "mdi-folder",
-    subMenu: [
-      { text: "图片", icon: "mdi-image-multiple" },
-      { text: "文档", icon: "mdi-file-multiple" },
-      { text: "视频", icon: "mdi-video" },
-      { text: "音频", icon: "mdi-music" },
-      { text: "其他", icon: "mdi-dots-horizontal" },
-    ],
-  },
-  {
-    text: "回收站",
-    icon: "mdi-trash-can",
-    subMenu: [],
-  },
-  // 添加更多一级菜单项
-];
-</script>

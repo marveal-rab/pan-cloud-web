@@ -1,8 +1,7 @@
 <template>
   <v-main>
     <v-container class="py-8 px-6" fluid>
-      <h1>Home</h1>
-      <v-divider></v-divider>
+      <Header></Header>
       <FileList :file-count="10"></FileList>
     </v-container>
   </v-main>
@@ -10,4 +9,5 @@
 
 <script setup>
 import FileList from "./FileList.vue";
+import Header from "./Header.vue";
 </script>
