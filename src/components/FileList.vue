@@ -1,8 +1,17 @@
 <template>
-  <div class="mt-8 mx-2">
+  <div class="my-4 mx-2">
     <v-row>
-      <v-col v-for="(file, index) in files" :key="index" cols="auto">
-        <FileItem :file-type="file.type" :file-name="file.name"></FileItem>
+      <v-col
+        v-for="(file, index) in files"
+        :key="index"
+        cols="auto"
+        class="pa-0 mt-0"
+      >
+        <FileItem
+          class="mx-2 mt-8"
+          :file-type="file.type"
+          :file-name="file.name"
+        ></FileItem>
       </v-col>
     </v-row>
   </div>

@@ -20,6 +20,7 @@ const items = [
 const selected_items = [];
 
 // refs
+const fileInputRef = ref(null);
 const newFolderName = ref("");
 const newFolderDialog = ref(false);
 
@@ -38,8 +39,6 @@ function handleNewFolderCancelClick() {
 
 <script>
 import { ref, onMounted } from "vue";
-
-const fileInputRef = ref(null);
 
 function handleUploadBtnClick() {
   // 通过引用(ref)触发文件输入框的点击事件

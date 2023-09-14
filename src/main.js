@@ -2,7 +2,12 @@ import "./assets/main.css";
 
 import { createApp } from "vue";
 import App from "./App.vue";
-import vuetify from "./plugins/vuetify";
-
 const app = createApp(App);
-app.use(vuetify).mount("#app");
+
+import vuetify from "./plugins/vuetify";
+app.use(vuetify);
+
+import router from "./router/index";
+app.use(router);
+
+app.mount("#app");
