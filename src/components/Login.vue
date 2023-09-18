@@ -35,7 +35,14 @@
           @click:append-inner="visible = !visible"
         ></v-text-field>
 
-        <v-btn block class="mb-8" color="blue" size="large" variant="tonal">
+        <v-btn
+          block
+          class="mb-8"
+          color="blue"
+          size="large"
+          variant="tonal"
+          @submit="handleLoginBtnClick"
+        >
           登录
         </v-btn>
       </v-card>
@@ -48,8 +55,18 @@
 import LogoIcon from "./icons/IconLogo.vue";
 import CloudRepoIcon from "./icons/IconCloudRepo.vue";
 import { ref } from "vue";
+import { test } from "@/apis/api";
 
 const visible = ref(false);
+
+function handleLoginBtnClick() {
+  debugger;
+  test()
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {});
+}
 </script>
 
 <style scoped>

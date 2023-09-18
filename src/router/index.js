@@ -1,4 +1,8 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import {
+  createRouter as _createRouter,
+  createWebHistory,
+  createMemoryHistory,
+} from "vue-router";
 
 const Home = () => import("@cp/Home.vue");
 const Login = () => import("@cp/Login.vue");
@@ -12,13 +16,6 @@ const routes = [
   },
 ];
 
-const router = createRouter({
-  history: createWebHashHistory(),
-  routes,
-});
-
-const isAuthenticated = false;
-
 // router.beforeEach((to, from, next) => {
 //   if (to.name !== "login" && !isAuthenticated) {
 //     console.log("not authenticated");
@@ -29,4 +26,11 @@ const isAuthenticated = false;
 //   }
 // });
 
-export default router;
+export function createRouter() {
+  return _createRouter({
+    history: import.meta.env.SSR
+      ? createMemoryHistory("/")
+      : createWebHistory("/"),
+    routes,
+  });
+}
