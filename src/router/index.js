@@ -6,6 +6,11 @@ const Login = () => import("@cp/Login.vue");
 const routes = [
   { path: "/", component: Home },
   {
+    path: "/:ft",
+    name: "files",
+    component: Home,
+  },
+  {
     path: "/login",
     name: "login",
     component: Login,

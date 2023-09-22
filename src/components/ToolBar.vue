@@ -1,68 +1,47 @@
 <script setup>
-import { ref } from "vue";
-const items = [
-  {
-    title: "Dashboard",
-    disabled: false,
-    href: "breadcrumbs_dashboard",
-  },
-  {
-    title: "Link 1",
-    disabled: false,
-    href: "breadcrumbs_link_1",
-  },
-  {
-    title: "Link 2",
-    disabled: true,
-    href: "breadcrumbs_link_2",
-  },
-];
+import { reactive } from "vue";
+
 const selected_items = [];
 
-// refs
-const fileInputRef = ref(null);
-const newFolderName = ref("");
-const newFolderDialog = ref(false);
+const state = reactive({
+  newFolderName: "",
+  newFolderDialog: false,
+});
 
 function handleNewFolderBtnClick() {
-  newFolderDialog.value = true;
+  state.newFolderDialog = true;
 }
 
 function handleNewFolderSubmitClick() {
-  newFolderDialog.value = false;
+  // TODO 执行新建文件夹
+  state.newFolderDialog = false;
+  state.newFolderName = "";
 }
 
 function handleNewFolderCancelClick() {
-  newFolderDialog.value = false;
-}
-</script>
-
-<script>
-import { ref, onMounted } from "vue";
-
-function handleUploadBtnClick() {
-  // 通过引用(ref)触发文件输入框的点击事件
-  fileInputRef.value.click();
+  state.newFolderDialog = false;
+  state.newFolderName = "";
 }
 
 function handleFilesSelected(event) {
   const selectedFiles = event.target.files;
   console.log("已选择文件:", selectedFiles.length);
 }
+</script>
 
-onMounted(() => {
-  fileInputRef = this.$refs.fileInputRef;
-});
+<script>
+export default {
+  methods: {
+    handleUploadBtnClick() {
+      // 通过引用(ref)触发文件输入框的点击事件
+      this.$refs.fileInputRef.click();
+    },
+  },
+};
 </script>
 
 <template>
   <div>
-    <v-breadcrumbs :items="items">
-      <template v-slot:divider>
-        <v-icon icon="mdi-chevron-right"></v-icon>
-      </template>
-    </v-breadcrumbs>
-
     <v-row class="my-2 ml-2">
       <v-btn-group v-if="selected_items.length === 0">
         <v-btn prepend-icon="mdi-upload" @click="handleUploadBtnClick">
@@ -79,13 +58,12 @@ onMounted(() => {
         <v-btn prepend-icon="mdi-rename-box">重命名</v-btn>
       </v-btn-group>
     </v-row>
-    <v-divider></v-divider>
   </div>
 
-  <v-dialog v-model="newFolderDialog" persistent width="auto">
+  <v-dialog v-model="state.newFolderDialog" persistent width="auto">
     <v-card>
       <v-card-title> 新建文件夹名称 </v-card-title>
-      <v-text-field></v-text-field>
+      <v-text-field :ref="state.newFolderName"></v-text-field>
       <v-card-actions>
         <v-btn @click="handleNewFolderCancelClick"> 取消 </v-btn>
         <v-btn @click="handleNewFolderSubmitClick"> 确认 </v-btn>
@@ -95,8 +73,8 @@ onMounted(() => {
 
   <v-file-input
     multiple
+    class="d-none"
     ref="fileInputRef"
-    style="display: none"
     @change="handleFilesSelected"
   ></v-file-input>
 </template>

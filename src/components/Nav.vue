@@ -1,25 +1,27 @@
 <script setup>
 import LogoFullIcon from "./icons/IconLogoFull.vue";
 
-const links = [
-  { icon: "mdi-folder", text: "全部文件" },
-  { icon: "mdi-trash-can-outline", text: "回收站" },
-];
 const menuItems = [
   {
     text: "全部文件",
     icon: "mdi-folder",
+    to: "/files",
     subMenu: [
-      { text: "图片", icon: "mdi-image-multiple" },
-      { text: "文档", icon: "mdi-file-multiple" },
-      { text: "视频", icon: "mdi-video" },
-      { text: "音频", icon: "mdi-music" },
-      { text: "其他", icon: "mdi-dots-horizontal" },
+      {
+        text: "图片",
+        icon: "mdi-image-multiple",
+        to: "image",
+      },
+      { text: "文档", icon: "mdi-file-multiple", to: "document" },
+      { text: "视频", icon: "mdi-video", to: "video" },
+      { text: "音频", icon: "mdi-music", to: "audio" },
+      { text: "其他", icon: "mdi-dots-horizontal", to: "other" },
     ],
   },
   {
     text: "回收站",
     icon: "mdi-trash-can",
+    to: "/trash",
     subMenu: [],
   },
 ];
@@ -33,25 +35,42 @@ const menuItems = [
 
     <v-divider></v-divider>
 
-    <v-list dense>
+    <v-list nav>
       <v-list-item v-for="(item, index) in menuItems" :key="index">
-        <v-list-item
-          :prepend-icon="item.icon"
-          :title="item.text"
+        <v-list-group
           :value="item.text"
-        ></v-list-item>
-        <v-list dense>
+          v-if="item.subMenu.length != 0"
+          color="info"
+        >
+          <template v-slot:activator="{ props }">
+            <v-list-item
+              v-bind="props"
+              :title="item.text"
+              :prepend-icon="item.icon"
+              :to="item.to"
+              link
+            />
+          </template>
           <v-list-item
             v-for="(subItem, subIndex) in item.subMenu"
             :key="subIndex"
-          >
-            <v-list-item
-              :prepend-icon="subItem.icon"
-              :title="subItem.text"
-              :value="subItem.text"
-            ></v-list-item>
-          </v-list-item>
-        </v-list>
+            :prepend-icon="subItem.icon"
+            :title="subItem.text"
+            :value="subItem.text"
+            :to="{ name: 'files', params: { ft: subItem.to } }"
+            color="info"
+            link
+          />
+        </v-list-group>
+        <v-list-item
+          v-else
+          :title="item.text"
+          :prepend-icon="item.icon"
+          :value="item.text"
+          color="info"
+          :to="item.to"
+          link
+        />
       </v-list-item>
     </v-list>
 
